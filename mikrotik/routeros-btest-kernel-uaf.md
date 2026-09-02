@@ -32,7 +32,7 @@ RouterOS bandwidth-test 内核模块（btest.ko）在 socket 回调注册后存�
 
 ### 2a. 三组对照实验 (2026-09-02, syz机 内网测试机, KVM+KASAN)
 
-方法: 自建 5.6.3 KASAN 内核 (原 syz 配置) + GPL 同源码构建模块 + 原 repro.cprog 弹幕 (15×20s), 证据: `evidence/btest-syz-repro-20260902/`
+方法: 自建 5.6.3 KASAN 内核 (原 syz 配置) + GPL 同源码构建模块 + 原 repro.cprog 弹幕 (15×20s), 证据: `mikrotik/evidence/` (3 份 KASAN 串口日志)
 
 | 组 | 模块 | 结果 |
 |---|---|---|

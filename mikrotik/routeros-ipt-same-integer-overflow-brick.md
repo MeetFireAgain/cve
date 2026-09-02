@@ -56,7 +56,7 @@ The `same_check()` function is **byte-for-byte identical** between v6 (linux-3.3
 2. `0x50-0x55` — rangeip == 0 的精确 2³² wrap 特判 → 拒绝
 3. `0x70: test/je error` — 循环结束 ipnum == 0 → 拒绝 (堵死 kmalloc(0))
 
-**June brick 的 oops 尸检** (从 `evidence/chr-7.20.8.img.brick_same_poc` 的 flash `rw/logs/temp_panic.log` 提取):
+**June brick 的 oops 尸检** (从 `mikrotik/evidence/brick-panic-oops.txt` 提取):
 ```
 RIP: 0xffffffffa02830a9 [ipt_SAME+0xa9]   ← Code: ... 41 89 0c 80 = mov %ecx,(%r8,%rax,4) = iparray[index++]=...
 CR2: 0x10                                  ← kmalloc(0) 的 ZERO_SIZE_PTR
