@@ -1,0 +1,194 @@
+IPv6: ADDRCONF(NETDEV_CHANGE): veth0_macvtap: link becomes ready
+IPv6: ADDRCONF(NETDEV_CHANGE): veth0_to_batadv: link becomes ready
+IPv6: ADDRCONF(NETDEV_CHANGE): veth1_to_batadv: link becomes ready
+==================================================================
+BUG: KASAN: slab-out-of-bounds in atomic_try_cmpxchg include/asm-generic/atomic-instrumented.h:693 [inline]
+BUG: KASAN: slab-out-of-bounds in queued_spin_lock include/asm-generic/qspinlock.h:78 [inline]
+BUG: KASAN: slab-out-of-bounds in do_raw_spin_lock include/linux/spinlock.h:181 [inline]
+BUG: KASAN: slab-out-of-bounds in __raw_spin_lock_bh include/linux/spinlock_api_smp.h:136 [inline]
+BUG: KASAN: slab-out-of-bounds in _raw_spin_lock_bh+0x77/0xe0 kernel/locking/spinlock.c:175
+Write of size 4 at addr ffff88806aeb4414 by task syz.2.17/942
+
+CPU: 0 PID: 942 Comm: syz.2.17 Tainted: G           O      5.6.3-syz #2
+Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0xc2/0x101 lib/dump_stack.c:118
+ print_address_description.constprop.0+0x1d/0x2a0 mm/kasan/report.c:374
+ __kasan_report.cold+0x37/0x77 mm/kasan/report.c:506
+ kasan_report+0x16/0x20 mm/kasan/common.c:641
+ check_memory_region_inline mm/kasan/generic.c:178 [inline]
+ check_memory_region+0x170/0x1c0 mm/kasan/generic.c:192
+ __kasan_check_write+0x18/0x20 mm/kasan/common.c:101
+ atomic_try_cmpxchg include/asm-generic/atomic-instrumented.h:693 [inline]
+ queued_spin_lock include/asm-generic/qspinlock.h:78 [inline]
+ do_raw_spin_lock include/linux/spinlock.h:181 [inline]
+ __raw_spin_lock_bh include/linux/spinlock_api_smp.h:136 [inline]
+ _raw_spin_lock_bh+0x77/0xe0 kernel/locking/spinlock.c:175
+ spin_lock_bh include/linux/spinlock.h:343 [inline]
+ __skb_recv_udp+0x1ee/0x7f0 net/ipv4/udp.c:1673
+ btest_data_ready+0x112/0x9b0 [btest]
+ unix_dgram_sendmsg+0x12c1/0x21f0 net/unix/af_unix.c:1812
+ sock_sendmsg_nosec net/socket.c:652 [inline]
+ sock_sendmsg+0xd6/0x120 net/socket.c:672
+ ____sys_sendmsg+0x662/0x850 net/socket.c:2345
+ ___sys_sendmsg+0x11d/0x1b0 net/socket.c:2399
+ __sys_sendmsg net/socket.c:2432 [inline]
+ __do_sys_sendmsg net/socket.c:2441 [inline]
+ __se_sys_sendmsg net/socket.c:2439 [inline]
+ __x64_sys_sendmsg+0x14d/0x230 net/socket.c:2439
+ do_syscall_64+0xb9/0x190 arch/x86/entry/common.c:294
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+RIP: 0033:0x7f428a9ce78d
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffdc39d95b8 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
+RAX: ffffffffffffffda RBX: 00007f428ac5cfa0 RCX: 00007f428a9ce78d
+RDX: 0000000000000008 RSI: 0000200000001240 RDI: 0000000000000004
+RBP: 00007f428aa75c3d R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f428ac5cfa0 R14: 00007f428ac5cfa0 R15: 0000000000001aeb
+
+Allocated by task 942:
+ save_stack+0x21/0x80 mm/kasan/common.c:72
+ set_track mm/kasan/common.c:80 [inline]
+ __kasan_kmalloc.isra.0+0xea/0x100 mm/kasan/common.c:515
+ kasan_slab_alloc+0x12/0x20 mm/kasan/common.c:523
+ slab_post_alloc_hook mm/slab.h:584 [inline]
+ slab_alloc_node mm/slub.c:2786 [inline]
+ slab_alloc mm/slub.c:2794 [inline]
+ kmem_cache_alloc+0xbc/0x1e0 mm/slub.c:2799
+ sk_prot_alloc+0x69/0x2f0 net/core/sock.c:1597
+ sk_alloc+0x37/0x430 net/core/sock.c:1657
+ unix_create1+0x8e/0x750 net/unix/af_unix.c:794
+ unix_create+0xff/0x180 net/unix/af_unix.c:856
+ __sock_create+0x203/0x4b0 net/socket.c:1433
+ sock_create net/socket.c:1484 [inline]
+ __sys_socketpair+0x1c9/0x5e0 net/socket.c:1584
+ __do_sys_socketpair net/socket.c:1637 [inline]
+ __se_sys_socketpair net/socket.c:1634 [inline]
+ __x64_sys_socketpair+0x9a/0x100 net/socket.c:1634
+ do_syscall_64+0xb9/0x190 arch/x86/entry/common.c:294
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+
+Freed by task 173:
+ save_stack+0x21/0x80 mm/kasan/common.c:72
+ set_track mm/kasan/common.c:80 [inline]
+ kasan_set_free_info mm/kasan/common.c:337 [inline]
+ __kasan_slab_free+0x138/0x180 mm/kasan/common.c:476
+ kasan_slab_free+0x12/0x20 mm/kasan/common.c:485
+ slab_free_hook mm/slub.c:1444 [inline]
+ slab_free_freelist_hook mm/slub.c:1477 [inline]
+ slab_free mm/slub.c:3034 [inline]
+ kmem_cache_free+0x81/0x2a0 mm/slub.c:3050
+ sk_prot_free net/core/sock.c:1638 [inline]
+ __sk_destruct+0x49b/0x5e0 net/core/sock.c:1724
+ sk_destruct+0xce/0x100 net/core/sock.c:1739
+ __sk_free+0xd1/0x3c0 net/core/sock.c:1750
+ sk_free+0x87/0xc0 net/core/sock.c:1761
+ sock_put include/net/sock.h:1744 [inline]
+ unix_release_sock+0x9ed/0xc30 net/unix/af_unix.c:574
+ unix_stream_connect+0x948/0x16d1 net/unix/af_unix.c:1417
+ __sys_connect_file+0x15c/0x1b0 net/socket.c:1859
+ __sys_connect+0x150/0x180 net/socket.c:1876
+ __do_sys_connect net/socket.c:1887 [inline]
+ __se_sys_connect net/socket.c:1884 [inline]
+ __x64_sys_connect+0x76/0xb0 net/socket.c:1884
+ do_syscall_64+0xb9/0x190 arch/x86/entry/common.c:294
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+
+The buggy address belongs to the object at ffff88806aeb4000
+ which belongs to the cache UNIX of size 1024
+The buggy address is located 20 bytes to the right of
+ 1024-byte region [ffff88806aeb4000, ffff88806aeb4400)
+The buggy address belongs to the page:
+page:ffffea0001abad00 refcount:1 mapcount:0 mapping:ffff88806ba09280 index:0x0 compound_mapcount: 0
+flags: 0x100000000010200(slab|head)
+raw: 0100000000010200 ffffea0001a23500 0000000200000002 ffff88806ba09280
+raw: 0000000000000000 00000000800e000e 00000001ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff88806aeb4300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ ffff88806aeb4380: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>ffff88806aeb4400: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+                         ^
+ ffff88806aeb4480: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88806aeb4500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+general protection fault, probably for non-canonical address 0xffa2698f8000a976: 0000 [#1] SMP KASAN NOPTI
+KASAN: maybe wild-memory-access in range [0xfd136c7c00054bb0-0xfd136c7c00054bb7]
+CPU: 0 PID: 942 Comm: syz.2.17 Tainted: G    B      O      5.6.3-syz #2
+Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:__write_once_size include/linux/compiler.h:226 [inline]
+RIP: 0010:queued_spin_lock_slowpath+0x42e/0xa10 kernel/locking/qspinlock.c:471
+Code: 89 f8 49 c1 e8 03 41 80 3c 30 00 0f 85 31 05 00 00 48 03 04 cd c0 a6 77 89 48 b9 00 00 00 00 00 fc ff df 48 89 c6 48 c1 ee 03 <80> 3c 0e 00 0f 85 5d 05 00 00 4c 89 f9 4c 89 28 48 b8 00 00 00 00
+RSP: 0018:ffff888065b9f5d0 EFLAGS: 00010a02
+RAX: fd136c7c00054bb3 RBX: 1ffff1100cb73ebd RCX: dffffc0000000000
+RDX: ffff88806aeb4414 RSI: 1fa26d8f8000a976 RDI: ffffffff8979a6b0
+RBP: ffff888065b9f690 R08: 1ffffffff12f34d6 R09: ffffed100d5d6882
+R10: 0000000000000007 R11: 0000000000000000 R12: ffff888065b9f668
+R13: ffff88806d233cc0 R14: 0000000000040000 R15: ffff88806d233cc8
+FS:  0000555555d05500(0000) GS:ffff88806d200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000001240 CR3: 000000006a97a005 CR4: 0000000000760ef0
+PKRU: 00000000
+Call Trace:
+ queued_spin_lock include/asm-generic/qspinlock.h:81 [inline]
+ do_raw_spin_lock include/linux/spinlock.h:181 [inline]
+ __raw_spin_lock_bh include/linux/spinlock_api_smp.h:136 [inline]
+ _raw_spin_lock_bh+0xca/0xe0 kernel/locking/spinlock.c:175
+ spin_lock_bh include/linux/spinlock.h:343 [inline]
+ __skb_recv_udp+0x1ee/0x7f0 net/ipv4/udp.c:1673
+ btest_data_ready+0x112/0x9b0 [btest]
+ unix_dgram_sendmsg+0x12c1/0x21f0 net/unix/af_unix.c:1812
+ sock_sendmsg_nosec net/socket.c:652 [inline]
+ sock_sendmsg+0xd6/0x120 net/socket.c:672
+ ____sys_sendmsg+0x662/0x850 net/socket.c:2345
+ ___sys_sendmsg+0x11d/0x1b0 net/socket.c:2399
+ __sys_sendmsg net/socket.c:2432 [inline]
+ __do_sys_sendmsg net/socket.c:2441 [inline]
+ __se_sys_sendmsg net/socket.c:2439 [inline]
+ __x64_sys_sendmsg+0x14d/0x230 net/socket.c:2439
+ do_syscall_64+0xb9/0x190 arch/x86/entry/common.c:294
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+RIP: 0033:0x7f428a9ce78d
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffdc39d95b8 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
+RAX: ffffffffffffffda RBX: 00007f428ac5cfa0 RCX: 00007f428a9ce78d
+RDX: 0000000000000008 RSI: 0000200000001240 RDI: 0000000000000004
+RBP: 00007f428aa75c3d R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f428ac5cfa0 R14: 00007f428ac5cfa0 R15: 0000000000001aeb
+Modules linked in: ipt_psd(O) btest(O)
+---[ end trace 0016a7f5e4e63f19 ]---
+RIP: 0010:__write_once_size include/linux/compiler.h:226 [inline]
+RIP: 0010:queued_spin_lock_slowpath+0x42e/0xa10 kernel/locking/qspinlock.c:471
+Code: 89 f8 49 c1 e8 03 41 80 3c 30 00 0f 85 31 05 00 00 48 03 04 cd c0 a6 77 89 48 b9 00 00 00 00 00 fc ff df 48 89 c6 48 c1 ee 03 <80> 3c 0e 00 0f 85 5d 05 00 00 4c 89 f9 4c 89 28 48 b8 00 00 00 00
+RSP: 0018:ffff888065b9f5d0 EFLAGS: 00010a02
+RAX: fd136c7c00054bb3 RBX: 1ffff1100cb73ebd RCX: dffffc0000000000
+RDX: ffff88806aeb4414 RSI: 1fa26d8f8000a976 RDI: ffffffff8979a6b0
+RBP: ffff888065b9f690 R08: 1ffffffff12f34d6 R09: ffffed100d5d6882
+R10: 0000000000000007 R11: 0000000000000000 R12: ffff888065b9f668
+R13: ffff88806d233cc0 R14: 0000000000040000 R15: ffff88806d233cc8
+FS:  0000555555d05500(0000) GS:ffff88806d200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000001240 CR3: 000000006a97a005 CR4: 0000000000760ef0
+PKRU: 00000000
+----------------
+Code disassembly (best guess):
+   0:	89 f8                	mov    %edi,%eax
+   2:	49 c1 e8 03          	shr    $0x3,%r8
+   6:	41 80 3c 30 00       	cmpb   $0x0,(%r8,%rsi,1)
+   b:	0f 85 31 05 00 00    	jne    0x542
+  11:	48 03 04 cd c0 a6 77 	add    -0x76885940(,%rcx,8),%rax
+  18:	89
+  19:	48 b9 00 00 00 00 00 	movabs $0xdffffc0000000000,%rcx
+  20:	fc ff df
+  23:	48 89 c6             	mov    %rax,%rsi
+  26:	48 c1 ee 03          	shr    $0x3,%rsi
+* 2a:	80 3c 0e 00          	cmpb   $0x0,(%rsi,%rcx,1) <-- trapping instruction
+  2e:	0f 85 5d 05 00 00    	jne    0x591
+  34:	4c 89 f9             	mov    %r15,%rcx
+  37:	4c 89 28             	mov    %r13,(%rax)
+  3a:	48                   	rex.W
+  3b:	b8 00 00 00 00       	mov    $0x0,%eax
