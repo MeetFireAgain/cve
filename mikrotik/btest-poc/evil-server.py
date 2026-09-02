@@ -1,5 +1,5 @@
 import socket, struct, time, threading
-HOST, PORT = "192.168.77.1", 2000
+HOST, PORT = "0.0.0.0", 2000
 lock = threading.Lock(); stats = {"conn":0, "auth":0, "frames":0}
 def handle(conn, cid):
     conn.settimeout(2.5)
