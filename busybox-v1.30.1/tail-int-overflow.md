@@ -2,7 +2,7 @@
 
 ## Affected Software
 - **Product: BusyBox**
-- **Version(s): v1.22.1 (TP-Link Deco M4 V3 firmware) through v1.30.1 (ubuntu 1:1.30.1-7ubuntu3.1)** — upstream bug, not fixed between these versions
+- **Version(s): v1.22.1 (TP-Link Deco M4 V3 firmware) through v1.37.0 (Alpine, latest upstream release) — upstream bug, never fixed**
 - **Vender: BusyBox upstream; also shipped by Ubuntu and multiple router vendors**
 
 ## Vulnerability Type
@@ -29,7 +29,7 @@ busybox tail -n 2147483648 /tmp/f    # SIGSEGV
 
 ## Steps to Reproduce
 1. Install busybox: `sudo apt install busybox`
-2. Run the PoC commands above; both terminate with SIGSEGV (exit code 139). Verified 2026-09-14 on Ubuntu 22.04 with the binary in this directory (`busybox` v1.30.1, exit=139 for both values; control `-n -3` exits 0).
+2. Run the PoC commands above; both terminate with SIGSEGV (exit code 139). Verified on: Ubuntu 22.04 BusyBox 1.30.1 x86-64 (2026-09-14) and Alpine BusyBox v1.37.0 (2026-09-14, exit=139 both values, control `-n -3` exits 0).
 
 ## Impact
 * Local Denial of Service: any script or service that passes a user-controlled `-n` value to `busybox tail` can be crashed
