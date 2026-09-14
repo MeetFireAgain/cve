@@ -1,0 +1,226 @@
+RRFuzz vulnerability reproduction evidence
+Captured: 2026-09-14 20:24:13 on webfuzz
+----
+Script started on 2026-09-14 20:24:13+08:00 [<not executed on terminal>]
+=== CVE-2026-75012: setPasswordCfg, body={"topicurl":"setPasswordCfg"} (password field absent) ===
+[32mGEF[0m for linux ready, type `[4m[33mgef[24m[0m' to start, `[4m[35mgef config[24m[0m' to configure
+[1m[32m93[0m commands loaded and [1m[34m5[0m functions added for GDB [1m[33m12.1[0m in 0.00ms using Python engine [1m[31m3.10[0m
+Reading /lib/ld-uClibc.so.0 from remote target...
+Reading /lib/ld-uClibc.so.0 from remote target...
+[1m[33m[*][0m Failed to find objfile or not a valid file format: [Errno 2] No such file or directory: '/proc/851102/root/lib/ld-uClibc.so.0'
+0x2b2b0e50 in _start () from target:/lib/ld-uClibc.so.0
+[H[J[ Legend: [1m[31mModified register[0m | [31mCode[0m | [32mHeap[0m | [35mStack[0m | [33mString[0m ]
+[1;38;5;240m───────────────────────────────────────────────────────────────────────────────────── [0m[36mregisters[0m[1;38;5;240m ────[0m
+[34m$zero[0m: 0x0       
+[34m$at  [0m: 0x0       
+[34m$v0  [0m: 0x0       
+[34m$v1  [0m: 0x0       
+[34m$a0  [0m: 0x0       
+[34m$a1  [0m: 0x0       
+[34m$a2  [0m: 0x0       
+[34m$a3  [0m: 0x0       
+[34m$t0  [0m: 0x0       
+[34m$t1  [0m: 0x0       
+[34m$t2  [0m: 0x0       
+[34m$t3  [0m: 0x0       
+[34m$t4  [0m: 0x0       
+[34m$t5  [0m: 0x0       
+[34m$t6  [0m: 0x0       
+[34m$t7  [0m: 0x0       
+[34m$s0  [0m: 0x0       
+[34m$s1  [0m: 0x0       
+[34m$s2  [0m: 0x0       
+[34m$s3  [0m: 0x0       
+[34m$s4  [0m: 0x0       
+[34m$s5  [0m: 0x0       
+[34m$s6  [0m: 0x0       
+[34m$s7  [0m: 0x0       
+[34m$t8  [0m: 0x0       
+[34m$t9  [0m: 0x0       
+[34m$k0  [0m: 0x0       
+[34m$k1  [0m: 0x0       
+[34m$s8  [0m: 0x0       
+[1m[31m$pc  [0m: [31m0x2b2b0e50[0m  →  [1;38;5;240m<_start+0000> move t9, ra[0m
+[1m[31m$sp  [0m: [35m0x2b2aa470[0m  →  0x00000001
+[34m$hi  [0m: 0x0       
+[34m$lo  [0m: 0x0       
+[1m[31m$fir [0m: 0x739300  
+[34m$ra  [0m: 0x0       
+[34m$gp  [0m: 0x0       
+[1;38;5;240m───────────────────────────────────────────────────────────────────────────────────────── [0m[36mstack[0m[1;38;5;240m ────[0m
+[36m0x2b2aa470[0m│+0x0000: 0x00000001[1m[34m	 ← $sp[0m
+[36m0x2b2aa474[0m│+0x0004: [35m0x2b2aa6af[0m  →  [33m"/home/webfuzz/Documents/qemu-rrfuzz/rrfuzz/tests/r[...]"[0m
+[36m0x2b2aa478[0m│+0x0008: 0x00000000
+[36m0x2b2aa47c[0m│+0x000c: [35m0x2b2aa71b[0m  →  [33m"SHELL=/bin/bash"[0m
+[36m0x2b2aa480[0m│+0x0010: [35m0x2b2aa72b[0m  →  [33m"COREPACK_ENABLE_AUTO_PIN=0"[0m
+[36m0x2b2aa484[0m│+0x0014: [35m0x2b2aa746[0m  →  [33m"SERVER_NAME=192.168.0.1"[0m
+[36m0x2b2aa488[0m│+0x0018: [35m0x2b2aa75e[0m  →  [33m"COLORTERM=truecolor"[0m
+[36m0x2b2aa48c[0m│+0x001c: [35m0x2b2aa772[0m  →  [33m"VSCODE_DEBUGPY_ADAPTER_ENDPOINTS=/home/webfuzz/.vs[...]"[0m
+[1;38;5;240m────────────────────────────────────────────────────────────────────────────── [0m[36mcode:mips:MIPS32[0m[1;38;5;240m ────[0m
+   [1;38;5;240m0x2b2b0e44                  0x17010 [0m
+   [1;38;5;240m0x2b2b0e48                  sra    zero, zero, 0x0[0m
+   [1;38;5;240m0x2b2b0e4c                  nop    [0m
+ [32m→ 0x2b2b0e50 <_start+0000>    move   t9, ra[0m
+   0x2b2b0e54 <_start+0004>    bal    0x2b2b0e5c <_start+12>
+   0x2b2b0e58 <_start+0008>    nop    
+   0x2b2b0e5c <_start+000c>    lui    gp, 0x2
+   0x2b2b0e60 <_start+0010>    addiu  gp, gp, -7756
+   0x2b2b0e64 <_start+0014>    addu   gp, gp, ra
+[1;38;5;240m─────────────────────────────────────────────────────────────────────────────────────── [0m[36mthreads[0m[1;38;5;240m ────[0m
+[1;38;5;240m───────────────────────────────────────────────────────────────────────────────────────── [0m[36mtrace[0m[1;38;5;240m ────[0m
+[1;38;5;240m────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+[H[J[ Legend: [1m[31mModified register[0m | [31mCode[0m | [32mHeap[0m | [35mStack[0m | [33mString[0m ]
+[1;38;5;240m───────────────────────────────────────────────────────────────────────────────────── [0m[36mregisters[0m[1;38;5;240m ────[0m
+[34m$zero[0m: 0x0       
+[34m$at  [0m: 0x0       
+[34m$v0  [0m: 0x0       
+[34m$v1  [0m: 0x0       
+[34m$a0  [0m: 0x0       
+[34m$a1  [0m: 0x0       
+[34m$a2  [0m: 0x0       
+[34m$a3  [0m: 0x0       
+[34m$t0  [0m: 0x0       
+[34m$t1  [0m: 0x0       
+[34m$t2  [0m: 0x0       
+[34m$t3  [0m: 0x0       
+[34m$t4  [0m: 0x0       
+[34m$t5  [0m: 0x0       
+[34m$t6  [0m: 0x0       
+[34m$t7  [0m: 0x0       
+[34m$s0  [0m: 0x0       
+[34m$s1  [0m: 0x0       
+[34m$s2  [0m: 0x0       
+[34m$s3  [0m: 0x0       
+[34m$s4  [0m: 0x0       
+[34m$s5  [0m: 0x0       
+[34m$s6  [0m: 0x0       
+[34m$s7  [0m: 0x0       
+[34m$t8  [0m: 0x0       
+[34m$t9  [0m: 0x0       
+[34m$k0  [0m: 0x0       
+[34m$k1  [0m: 0x0       
+[34m$s8  [0m: 0x0       
+[1m[31m$pc  [0m: [31m0x2b2b0e50[0m  →  [1;38;5;240m<_start+0000> move t9, ra[0m
+[1m[31m$sp  [0m: [35m0x2b2aa470[0m  →  0x00000001
+[34m$hi  [0m: 0x0       
+[34m$lo  [0m: 0x0       
+[1m[31m$fir [0m: 0x739300  
+[34m$ra  [0m: 0x0       
+[34m$gp  [0m: 0x0       
+[1;38;5;240m───────────────────────────────────────────────────────────────────────────────────────── [0m[36mstack[0m[1;38;5;240m ────[0m
+[36m0x2b2aa470[0m│+0x0000: 0x00000001[1m[34m	 ← $sp[0m
+[36m0x2b2aa474[0m│+0x0004: [35m0x2b2aa6af[0m  →  [33m"/home/webfuzz/Documents/qemu-rrfuzz/rrfuzz/tests/r[...]"[0m
+[36m0x2b2aa478[0m│+0x0008: 0x00000000
+[36m0x2b2aa47c[0m│+0x000c: [35m0x2b2aa71b[0m  →  [33m"SHELL=/bin/bash"[0m
+[36m0x2b2aa480[0m│+0x0010: [35m0x2b2aa72b[0m  →  [33m"COREPACK_ENABLE_AUTO_PIN=0"[0m
+[36m0x2b2aa484[0m│+0x0014: [35m0x2b2aa746[0m  →  [33m"SERVER_NAME=192.168.0.1"[0m
+[36m0x2b2aa488[0m│+0x0018: [35m0x2b2aa75e[0m  →  [33m"COLORTERM=truecolor"[0m
+[36m0x2b2aa48c[0m│+0x001c: [35m0x2b2aa772[0m  →  [33m"VSCODE_DEBUGPY_ADAPTER_ENDPOINTS=/home/webfuzz/.vs[...]"[0m
+[1;38;5;240m────────────────────────────────────────────────────────────────────────────── [0m[36mcode:mips:MIPS32[0m[1;38;5;240m ────[0m
+   [1;38;5;240m0x2b2b0e44                  0x17010 [0m
+   [1;38;5;240m0x2b2b0e48                  sra    zero, zero, 0x0[0m
+   [1;38;5;240m0x2b2b0e4c                  nop    [0m
+ [32m→ 0x2b2b0e50 <_start+0000>    move   t9, ra[0m
+   0x2b2b0e54 <_start+0004>    bal    0x2b2b0e5c <_start+12>
+   0x2b2b0e58 <_start+0008>    nop    
+   0x2b2b0e5c <_start+000c>    lui    gp, 0x2
+   0x2b2b0e60 <_start+0010>    addiu  gp, gp, -7756
+   0x2b2b0e64 <_start+0014>    addu   gp, gp, ra
+[1;38;5;240m─────────────────────────────────────────────────────────────────────────────────────── [0m[36mthreads[0m[1;38;5;240m ────[0m
+[1;38;5;240m───────────────────────────────────────────────────────────────────────────────────────── [0m[36mtrace[0m[1;38;5;240m ────[0m
+[1;38;5;240m────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+[1m[33m[*][0m Using `target remote` with GEF should work in most cases, but use `gef-remote` if you can. You can disable the overwrite of the `target remote` command by toggling `gef.disable_target_remote_overwrite` in the config.
+Reading /lib/libm.so.0 from remote target...
+Reading /lib/libiw.so.30 from remote target...
+Reading /lib/libshared.so from remote target...
+Reading /lib/libcjson.so from remote target...
+Reading /lib/libpthread.so.0 from remote target...
+Reading /lib/librt.so.0 from remote target...
+Reading /lib/libc.so.0 from remote target...
+Reading /lib/libdl.so.0 from remote target...
+[1m[33m[*][0m Failed to find objfile or not a valid file format: [Errno 2] No such file or directory: '/proc/851102/root/lib/libm.so.0'
+[1m[33m[*][0m Failed to find objfile or not a valid file format: [Errno 2] No such file or directory: '/proc/851102/root/lib/libiw.so.30'
+[1m[33m[*][0m Failed to find objfile or not a valid file format: [Errno 2] No such file or directory: '/proc/851102/root/lib/libshared.so'
+[1m[33m[*][0m Failed to find objfile or not a valid file format: [Errno 2] No such file or directory: '/proc/851102/root/lib/libcjson.so'
+[1m[33m[*][0m Failed to find objfile or not a valid file format: [Errno 2] No such file or directory: '/proc/851102/root/lib/libpthread.so.0'
+[1m[33m[*][0m Failed to find objfile or not a valid file format: [Errno 2] No such file or directory: '/proc/851102/root/lib/librt.so.0'
+[1m[33m[*][0m Failed to find objfile or not a valid file format: [Errno 2] No such file or directory: '/proc/851102/root/lib/libc.so.0'
+[1m[33m[*][0m Failed to find objfile or not a valid file format: [Errno 2] No such file or directory: '/proc/851102/root/lib/libdl.so.0'
+
+Program received signal SIGSEGV, Segmentation fault.
+0x2b3aa414 in strcoll () from target:/lib/libc.so.0
+[H[J[ Legend: [1m[31mModified register[0m | [31mCode[0m | [32mHeap[0m | [35mStack[0m | [33mString[0m ]
+[1;38;5;240m───────────────────────────────────────────────────────────────────────────────────── [0m[36mregisters[0m[1;38;5;240m ────[0m
+[34m$zero[0m: 0x0       
+[1m[31m$at  [0m: [31m0x2b305110[0m  →  [1;38;5;240m<nvram_get_+004c> lw gp, 16(sp)[0m
+[1m[31m$v0  [0m: [31m0x2b3aa410[0m  →  [1;38;5;240m<strcoll+0000> lbu v1, 0(a0)[0m
+[34m$v1  [0m: 0x0       
+[1m[31m$a0  [0m: [35m0x2b2a9040[0m  →  0x00000000
+[34m$a1  [0m: 0x0       
+[34m$a2  [0m: 0x0       
+[34m$a3  [0m: 0x0       
+[1m[31m$t0  [0m: 0x2b379998  →  0x6c5f5f00
+[1m[31m$t1  [0m: 0x2b374738  →  0x00000000
+[34m$t2  [0m: 0x0       
+[1m[31m$t3  [0m: 0xffffffff
+[1m[31m$t4  [0m: 0xf0000000
+[1m[31m$t5  [0m: 0x1       
+[1m[31m$t6  [0m: 0x400     
+[1m[31m$t7  [0m: [31m0x004259ec[0m  →  [1;38;5;240m<_ftext+2418c> beqz v0, 0x425a10 <_ftext+147888>[0m
+[1m[31m$s0  [0m: 0x0042fe28  →  0x00000000
+[1m[31m$s1  [0m: [35m0x2b2a9040[0m  →  0x00000000
+[1m[31m$s2  [0m: 0x00430000  →  0x2f6f7c87
+[1m[31m$s3  [0m: 0x0042fe28  →  0x00000000
+[1m[31m$s4  [0m: 0x004413a0  →  [33m"setLanguageCfg"[0m
+[1m[31m$s5  [0m: [32m0x00443008[0m  →  [33m"{"topicurl":"setPasswordCfg"}"[0m
+[1m[31m$s6  [0m: [32m0x00443030[0m  →  0x00000000
+[34m$s7  [0m: 0x0       
+[1m[31m$t8  [0m: 0x47      
+[1m[31m$t9  [0m: [31m0x2b3aa410[0m  →  [1;38;5;240m<strcoll+0000> lbu v1, 0(a0)[0m
+[34m$k0  [0m: 0x0       
+[34m$k1  [0m: 0x0       
+[34m$s8  [0m: 0x0       
+[1m[31m$pc  [0m: [31m0x2b3aa414[0m  →  [1;38;5;240m<strcoll+0004> lbu v0, 0(a1)[0m
+[1m[31m$sp  [0m: [35m0x2b2a9028[0m  →  [35m0x2b2a9030[0m  →  0x0042fe28  →  0x00000000
+[1m[31m$hi  [0m: 0x165     
+[1m[31m$lo  [0m: 0x1e78d   
+[34m$fir [0m: 0x739300  
+[1m[31m$ra  [0m: [31m0x004259ec[0m  →  [1;38;5;240m<_ftext+2418c> beqz v0, 0x425a10 <_ftext+147888>[0m
+[1m[31m$gp  [0m: [31m0x2b2cf010[0m  →  [1;38;5;240m<erf+012c> ldc1 $f8, -20176(v0)[0m
+[1;38;5;240m───────────────────────────────────────────────────────────────────────────────────────── [0m[36mstack[0m[1;38;5;240m ────[0m
+[36m0x2b2a9028[0m│+0x0000: [35m0x2b2a9030[0m  →  0x0042fe28  →  0x00000000[1m[34m	 ← $sp[0m
+[36m0x2b2a902c[0m│+0x0004: [31m0x2b2b37a8[0m  →  [1;38;5;240m<__dl_runtime_resolve+0088> lw gp, 24(s8)[0m
+[36m0x2b2a9030[0m│+0x0008: 0x0042fe28  →  0x00000000
+[36m0x2b2a9034[0m│+0x000c: [35m0x2b2ab2d8[0m  →  0x54595000
+[36m0x2b2a9038[0m│+0x0010: 0x0044a690
+[36m0x2b2a903c[0m│+0x0014: [35m0x2b2aa340[0m  →  0x00000000
+[36m0x2b2a9040[0m│+0x0018: 0x00000000[1m[34m	 ← $a0, $s1[0m
+[36m0x2b2a9044[0m│+0x001c: 0x00000000
+[1;38;5;240m────────────────────────────────────────────────────────────────────────────── [0m[36mcode:mips:MIPS32[0m[1;38;5;240m ────[0m
+   [1;38;5;240m0x2b3aa408 <strlen+0098>    jr     ra[0m
+   [1;38;5;240m0x2b3aa40c <strlen+009c>    nop    [0m
+   [1;38;5;240m0x2b3aa410 <strcoll+0000>   lbu    v1, 0(a0)[0m
+ [32m→ 0x2b3aa414 <strcoll+0004>   lbu    v0, 0(a1)[0m
+   0x2b3aa418 <strcoll+0008>   addiu  a0, a0, 1
+   0x2b3aa41c <strcoll+000c>   bnez   v1, 0x2b3aa42c <strcoll+28>
+   0x2b3aa420 <strcoll+0010>   addiu  a1, a1, 1
+   0x2b3aa424 <strcoll+0014>   jr     ra
+   0x2b3aa428 <strcoll+0018>   negu   v0, v0
+[1;38;5;240m─────────────────────────────────────────────────────────────────────────────────────── [0m[36mthreads[0m[1;38;5;240m ────[0m
+[1;38;5;240m───────────────────────────────────────────────────────────────────────────────────────── [0m[36mtrace[0m[1;38;5;240m ────[0m
+[1;38;5;240m────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+#0  0x2b3aa414 in strcoll () from target:/lib/libc.so.0
+#1  0x004259ec in _ftext ()
+Backtrace stopped: frame did not save the PC
+pc: 0x2b3aa414
+ra: 0x4259ec
+a0: 0x2b2a9040
+a1: 0x0
+=> 0x2b3aa414 <strcoll+4>:	lbu	v0,0(a1)
+   0x2b3aa418 <strcoll+8>:	addiu	a0,a0,1
+   0x2b3aa41c <strcoll+12>:	bnez	v1,0x2b3aa42c <strcoll+28>
+   0x2b3aa420 <strcoll+16>:	addiu	a1,a1,1
+[1m[33m[*][0m Exception while restoring local context: <method 'disconnect' of 'gdb.EventRegistry' objects> returned a result with an exception set
+Python Exception <class 'SystemError'>: <method 'disconnect' of 'gdb.EventRegistry' objects> returned a result with an exception set
+
+Script done on 2026-09-14 20:24:15+08:00 [COMMAND_EXIT_CODE="0"]

