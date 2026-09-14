@@ -22,7 +22,7 @@ qemu-arm-static $QEMU_LD_PREFIX/bin/websockd -a 65536 --max-connections 0 --ip 0
 ```
 
 ## Steps to Reproduce
-1. Extract the Tenda AX1803 v2 firmware (V1.0.0.1, build 1382106) squashfs-root.
+1. Extract the Tenda AX1803 v2 firmware (V1.0.0.1, build 1382106) squashfs-root. Target binary MD5-12: e399cdc17734.
 2. Run the PoC under `qemu-arm-static`; process terminates with SIGSEGV.
 3. Reproducer scripts (20) available on request.
 

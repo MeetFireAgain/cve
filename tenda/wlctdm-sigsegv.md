@@ -22,7 +22,7 @@ qemu-arm-static $QEMU_LD_PREFIX/bin/wlctdm -p 65536 -h 'http://localhost:8080/te
 ```
 
 ## Steps to Reproduce
-1. Extract the Tenda AX1803 v2 firmware (V1.0.0.1, build 1382106) squashfs-root.
+1. Extract the Tenda AX1803 v2 firmware (V1.0.0.1, build 1382106) squashfs-root. Target binary MD5-12: cf394b908310.
 2. Run the PoC under `qemu-arm-static`; process terminates with SIGSEGV.
 3. Reproducer scripts (32) available on request.
 

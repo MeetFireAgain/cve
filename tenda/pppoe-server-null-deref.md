@@ -32,7 +32,7 @@ qemu-arm-static $QEMU_LD_PREFIX/bin/pppoe-server -L 999.999.999.999
 ```
 
 ## Steps to Reproduce
-1. Extract the Tenda firmware (Tenda AX1803 v2, firmware V1.0.0.1 build 1382106) to obtain its squashfs-root.
+1. Extract the Tenda AX1803 v2 firmware (V1.0.0.1, build 1382106) squashfs-root. Target binary MD5-12: fa2950ab55a2.
 2. Run the PoC command above under `qemu-arm-static`.
 3. The process terminates with SIGSEGV. Full reproducer scripts: 34
    `reproduce.sh` files in the research crash archive (available on request).
