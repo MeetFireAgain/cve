@@ -2,7 +2,7 @@
 
 ## Affected Software
 - **Product: pppoe-server (rp-pppoe)**
-- **Version(s): rp-pppoe 2.7 as shipped in Tenda firmware (reference: Tenda CNVD-2022-89236, ARM32)**
+- **Version(s): rp-pppoe 2.7 as shipped in Tenda firmware (Tenda AX1803 v2 (AX1803V2.0), firmware V1.0.0.1 (build 1382106, image_version 5027GWTR98_YD_AX1803V21382106), ARM32)**
 - **Vender: Tenda**
 
 ## Vulnerability Type
@@ -32,7 +32,7 @@ qemu-arm-static $QEMU_LD_PREFIX/bin/pppoe-server -L 999.999.999.999
 ```
 
 ## Steps to Reproduce
-1. Extract the Tenda firmware (reference CNVD-2022-89236) to obtain its squashfs-root.
+1. Extract the Tenda firmware (Tenda AX1803 v2, firmware V1.0.0.1 build 1382106) to obtain its squashfs-root.
 2. Run the PoC command above under `qemu-arm-static`.
 3. The process terminates with SIGSEGV. Full reproducer scripts: 34
    `reproduce.sh` files in the research crash archive (available on request).

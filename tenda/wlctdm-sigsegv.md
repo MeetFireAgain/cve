@@ -2,7 +2,7 @@
 
 ## Affected Software
 - **Product: wlctdm**
-- **Version(s): as shipped in Tenda firmware (reference: Tenda CNVD-2022-89236, ARM32)**
+- **Version(s): as shipped in Tenda firmware (Tenda AX1803 v2 (AX1803V2.0), firmware V1.0.0.1 (build 1382106, image_version 5027GWTR98_YD_AX1803V21382106), ARM32)**
 - **Vender: Tenda**
 
 ## Vulnerability Type
@@ -22,7 +22,7 @@ qemu-arm-static $QEMU_LD_PREFIX/bin/wlctdm -p 65536 -h 'http://localhost:8080/te
 ```
 
 ## Steps to Reproduce
-1. Extract the Tenda firmware squashfs-root.
+1. Extract the Tenda AX1803 v2 firmware (V1.0.0.1, build 1382106) squashfs-root.
 2. Run the PoC under `qemu-arm-static`; process terminates with SIGSEGV.
 3. Reproducer scripts (32) available on request.
 

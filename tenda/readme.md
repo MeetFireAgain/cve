@@ -1,7 +1,7 @@
 # Tenda Firmware CLI Crash Advisories
 
 Independent security research disclosures for CLI utilities in Tenda router
-firmware (reference firmware: Tenda CNVD-2022-89236, ARM32). All crashes were
+firmware (Tenda AX1803 v2 (AX1803V2.0), firmware V1.0.0.1 (build 1382106), ARM32). All crashes were
 found with QemuLLMFuzz (LLM-assisted semantic greybox fuzzing), reproduced
 under `qemu-arm-static` user-mode emulation, and have a 100% reproduction rate.
 
