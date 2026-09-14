@@ -14,4 +14,7 @@ Security vulnerability disclosures.
 | GraphicsMagick | [gm convert giant resize exhaustion](gm/gm-convert-resize-exhaustion.md) |
 | D-Link DSL-3782 | [dlink-dsl3782/](dlink-dsl3782/README.md) |
 | MikroTik RouterOS | [mikrotik/](mikrotik/readme.md) |
+| TOTOLINK N600R | [lighttpd malformed-request / chunked-TE remote DoS](totolink-n600r/readme.md) |
+| ASUS RT-AC68U | [httpd long-URL overflow remote DoS](asus-rtac68u/readme.md) |
+| TOTOLINK A720R | [boa heap corruption on GET / (remote DoS)](totolink-a720r/readme.md) |
 | LightFTP | [STOR silent data loss on write() failure](lightftp/readme.md) |

