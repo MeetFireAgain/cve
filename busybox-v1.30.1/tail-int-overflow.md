@@ -1,5 +1,7 @@
 # Bug Report
 
+> Upstream-confirmed on BusyBox v1.22.1 (ARM32, TP-Link Deco M4 firmware) through v1.30.1 (Ubuntu, x86-64) — unfixed across 8 years of releases. Candidate for CVE via BusyBox upstream <busybox@busybox.net>.
+
 ## Affected Software
 - **Product: BusyBox**
 - **Version(s): v1.22.1 (TP-Link Deco M4 V3 firmware) through v1.37.0 (Alpine, latest upstream release) — upstream bug, never fixed**
@@ -34,3 +36,9 @@ busybox tail -n 2147483648 /tmp/f    # SIGSEGV
 ## Impact
 * Local Denial of Service: any script or service that passes a user-controlled `-n` value to `busybox tail` can be crashed
 * Embedded Device Impact: affects BusyBox versions shipped in IoT firmware (confirmed on TP-Link Deco M4 V3 1.5.0, ARM32) and on Ubuntu hosts
+
+## Reproduction Evidence
+
+![tail -n INT32_MIN / INT32_MAX+1 under qemu-arm-static (TP-Link Deco M4 firmware busybox v1.22.1) — SIGSEGV, exit 139](busybox_tail.png)
+
+*tail -n INT32_MIN / INT32_MAX+1 under qemu-arm-static (TP-Link Deco M4 firmware busybox v1.22.1) — SIGSEGV, exit 139*

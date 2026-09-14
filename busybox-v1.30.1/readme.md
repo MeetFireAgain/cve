@@ -1,4 +1,7 @@
-# Bug Report 
+# Bug Report
+
+> **CVE-2026-76014** (assigned via VulDB, 2026-09)
+
 
 ## Affected Software
 - **Product: Busybox** 
