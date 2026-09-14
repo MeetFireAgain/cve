@@ -30,3 +30,9 @@ qemu-arm-static $QEMU_LD_PREFIX/bin/wan_check \
 
 ## Impact
 Denial of Service of the WAN monitoring service; availability impact on the device.
+
+## Reproduction Evidence
+
+![wan_check boundary-value crashes — SIGSEGV, exit 139](wan_check.png)
+
+*wan_check boundary-value crashes — SIGSEGV, exit 139*

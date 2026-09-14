@@ -28,3 +28,9 @@ qemu-arm-static $QEMU_LD_PREFIX/bin/wlctdm_test -p 65536 -s AAAAAAAAAAAAAAAAAAAA
 
 ## Impact
 Denial of Service of the wireless test service on the device.
+
+## Reproduction Evidence
+
+![wlctdm_test boundary-value crashes — SIGSEGV, exit 139](wlctdm_test.png)
+
+*wlctdm_test boundary-value crashes — SIGSEGV, exit 139*

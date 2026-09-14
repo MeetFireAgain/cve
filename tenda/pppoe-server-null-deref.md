@@ -41,3 +41,17 @@ qemu-arm-static $QEMU_LD_PREFIX/bin/pppoe-server -L 999.999.999.999
 * Denial of Service of the PPPoE server service on the device
 * If any web/management interface passes user-controlled values to these
   options, the crash becomes remotely triggerable
+
+## Reproduction Evidence
+
+![-C family: URL double-encoding traversal payloads — SIGSEGV](pppoe_C.png)
+
+*-C family: URL double-encoding traversal payloads — SIGSEGV*
+
+![-L family: 999.999.999.999 IP parse — SIGSEGV](pppoe_L.png)
+
+*-L family: 999.999.999.999 IP parse — SIGSEGV*
+
+![crash-signature to root-cause attribution](attribution_pppoe.png)
+
+*crash-signature to root-cause attribution*

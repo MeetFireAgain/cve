@@ -16,3 +16,17 @@ under `qemu-arm-static` user-mode emulation, and have a 100% reproduction rate.
 All crashes require local command-line access to the device (or an exploit
 chain that reaches these binaries), so they are rated High (availability impact
 on embedded services).
+
+## Reproduction evidence (2026-09-08 package, re-captured 2026-09-14)
+
+| Screenshot | Content |
+|---|---|
+| [pppoe_C.png](pppoe_C.png) | `-C` family — URL double-encoding traversal payloads, SIGSEGV |
+| [pppoe_L.png](pppoe_L.png) | `-L` family — `999.999.999.999` IP parse, SIGSEGV |
+| [attribution_pppoe.png](attribution_pppoe.png) | crash-to-root-cause attribution for the pppoe-server families |
+| [wan_check.png](wan_check.png) | wan_check boundary-value crashes |
+| [websockd.png](websockd.png) | websockd boundary-value crashes |
+| [wlctdm.png](wlctdm.png) / [wlctdm_test.png](wlctdm_test.png) | wlctdm family crashes |
+
+Full crash corpora (unique signatures + per-signature `reproduce.sh`):
+see the `crashes/` tree of the 2026-09-08 `vuln_submission_package`.

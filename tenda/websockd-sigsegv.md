@@ -28,3 +28,9 @@ qemu-arm-static $QEMU_LD_PREFIX/bin/websockd -a 65536 --max-connections 0 --ip 0
 
 ## Impact
 Denial of Service of the WebSocket service on the device.
+
+## Reproduction Evidence
+
+![websockd boundary-value crashes — SIGSEGV, exit 139](websockd.png)
+
+*websockd boundary-value crashes — SIGSEGV, exit 139*

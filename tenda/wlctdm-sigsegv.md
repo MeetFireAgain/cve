@@ -28,3 +28,9 @@ qemu-arm-static $QEMU_LD_PREFIX/bin/wlctdm -p 65536 -h 'http://localhost:8080/te
 
 ## Impact
 Denial of Service of the wireless diagnostic service on the device.
+
+## Reproduction Evidence
+
+![wlctdm boundary-value crashes — SIGSEGV, exit 139](wlctdm.png)
+
+*wlctdm boundary-value crashes — SIGSEGV, exit 139*
