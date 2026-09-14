@@ -1,0 +1,88 @@
+############################################################
+# STEP 0. Environment
+############################################################
+Linux 7d1f8323db2d 6.12.76-linuxkit #1 SMP Mon Jul 27 16:56:11 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+LightFTP source: master snapshot 2026-06-15 (FTP_VERSION "2.4" per src/inc/ftpserv.h)
+75:#define FTP_VERSION          "2.4"
+
+############################################################
+# STEP 1. Build (plain, and ASan)
+############################################################
+plain build OK
+asan build OK
+
+############################################################
+# STEP 2. Test configuration (fftp.conf)
+############################################################
+[ftpconfig]
+port=2121
+maxusers=10
+interface=0.0.0.0
+external_ip=127.0.0.1
+local_mask=255.255.255.0
+minport=40000
+maxport=40100
+logfilepath=/work/tests/fftplog
+follow_symlinks=0
+[anonymous]
+pswd=*
+accs=readonly
+root=/work/tests/ftpshare
+[uploader]
+pswd=Weakuploaderpassword111
+accs=upload
+root=/work/tests/ftpshare
+[webadmin]
+pswd=VeryStrongadminpassword222
+accs=admin
+root=/work/tests/ftpshare
+
+############################################################
+# STEP 3. CONTROL TEST - no fault injection (expected: full file + 226)
+############################################################
+CONTROL final response: 226 Transfer complete. Closing data connection.
+-rw-r--r-- 1 root root 2048 Sep 14 12:21 ftpshare/control_test.txt
+
+############################################################
+# STEP 4. Compile write() fault injector (LD_PRELOAD, ENOSPC after 512 bytes)
+############################################################
+injector built
+23:static const size_t ERROR_THRESHOLD = 512; 
+81:        if (bytes_written_to_target + count > ERROR_THRESHOLD) {
+
+############################################################
+# STEP 5. VULNERABILITY TEST - LD_PRELOAD injector
+############################################################
+[banner] 220 LightFTP server ready
+[user ] 331 User uploader OK. Password required
+[pass ] 230 User logged in, proceed.
+[pasv  ] 227 Entering Passive Mode (127,0,0,1,156,68).
+[stor ] 150 File status okay; about to open data connection.
+[*] Server final response: 226 Transfer complete. Closing data connection.
+[*] Sent 2048 bytes, on disk: 512 bytes
+[!] VULNERABILITY CONFIRMED: 226 success returned but file truncated
+PoC exit code: 0
+
+############################################################
+# STEP 6. Disk verification (both files)
+############################################################
+-rw-r--r-- 1 root root 2048 Sep 14 12:21 ftpshare/control_test.txt
+-rw-r--r-- 1 root root  512 Sep 14 12:21 ftpshare/vuln_test.txt
+control bytes: 2048 (expected 2048)
+vuln    bytes: 512 (expected 2048, got truncated)
+
+############################################################
+# STEP 7. Server-side logs
+############################################################
+--- injector (stderr) ---
+[INJECTOR] Targeting FD 7 for /work/tests/ftpshare/vuln_test.txt (via open*)
+--- FTP session log (vuln run) ---
+14-09-2026 12:21:21 S-id=1 :  STOR: vuln_test.txt
+14-09-2026 12:21:21 S-id=1 :  @@ CMD: STOR vuln_test.txt
+14-09-2026 12:21:21 S-id=1 :  STOR/APPEND complete. 2048 bytes (0.001953 MBytes) total received in 0.000516 seconds (3.786043 MBytes/s)
+
+############################################################
+# RESULT: server returned 226 Transfer complete while only
+# 512/2048 bytes reached the disk => SILENT DATA LOSS CONFIRMED
+############################################################

@@ -1,0 +1,20 @@
+############################################################
+# REAL DISK FULL TEST - no LD_PRELOAD, no fault injector
+############################################################
+--- [1] create an 8 KB tmpfs filesystem ---
+tmpfs mounted (8 KB)
+tmpfs           8.0K     0  8.0K   0% /tmp/tinyfs
+--- [2] start LightFTP with FTP root on the tiny tmpfs ---
+server started (no LD_PRELOAD: 0 preload vars)
+--- [3] upload a 100 KB file ---
+[banner] 220 LightFTP server ready
+[login] 230 User logged in, proceed.
+[stor ] 150 File status okay; about to open data connection.
+[*] Server final response: 226 Transfer complete. Closing data connection.
+[*] Sent 100000 bytes, on disk: 0 bytes
+[!] VULNERABILITY CONFIRMED WITH REAL FULL DISK (tmpfs, no LD_PRELOAD)
+--- [4] disk state after upload ---
+tmpfs           8.0K  8.0K     0 100% /tmp/tinyfs
+total 0
+-rw-r--r-- 1 root root 0 Sep 14 12:41 bigfile.bin
+PoC exit code: 0

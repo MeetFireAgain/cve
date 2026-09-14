@@ -1,0 +1,17 @@
+=== [1] Starting LightFTP (master, plain build) with write() fault injector (ENOSPC after 512 bytes) ===
+=== [2] Running PoC: upload 2048 bytes as user 'uploader' ===
+[banner] 220 LightFTP server ready
+[user ] 331 User uploader OK. Password required
+[pass ] 230 User logged in, proceed.
+[pasv  ] 227 Entering Passive Mode (127,0,0,1,156,142).
+[stor ] 150 File status okay; about to open data connection.
+[*] Server final response: 226 Transfer complete. Closing data connection.
+[*] Sent 2048 bytes, on disk: 512 bytes
+[!] VULNERABILITY CONFIRMED: 226 success returned but file truncated
+PoC_exit_code=0
+
+=== [3] File actually stored on server disk ===
+-rw-r--r-- 1 root root 512 Sep 14 12:11 ftpshare/vuln_test.txt
+
+=== [4] Server-side injector log ===
+[INJECTOR] Targeting FD 7 for /work/tests/ftpshare/vuln_test.txt (via open*)
