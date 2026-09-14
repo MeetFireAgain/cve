@@ -44,3 +44,9 @@ Denial of Service: any pipeline that renders with user-controlled resolution
 (document preview / thumbnail services) can be hung, tying up worker slots
 indefinitely. No upstream bug report exists for this issue as of 2026-09-14
 (checked bugs.ghostscript.com and GitHub).
+
+## Reproduction Evidence
+
+![mutool draw negative DPI — hang (no exit within timeout)](mutool_hang.png)
+
+*mutool draw negative DPI — hang (no exit within timeout)*

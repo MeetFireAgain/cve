@@ -39,3 +39,9 @@ qemu-arm-static $QEMU_LD_PREFIX/usr/sbin/lighttpd -D -m /tmp/c3.txt -f /tmp/c1.t
 * Denial of Service: crash of the web server process during startup/reload
   when multiple configuration sources are supplied
 * Requires control over the lighttpd command line / service definition
+
+## Reproduction Evidence
+
+![config-merge assertion under qemu-arm-static — SIGABRT after `context.all_configs->used == 0` fails](lighttpd_assert.png)
+
+*config-merge assertion under qemu-arm-static — SIGABRT after `context.all_configs->used == 0` fails*

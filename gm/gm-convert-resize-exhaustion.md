@@ -37,3 +37,9 @@ No matching report found in the GraphicsMagick SourceForge bug tracker
 ## Impact
 Denial of Service in image-processing pipelines that pass user-controlled
 resize dimensions (thumbnail services, upload handlers).
+
+## Reproduction Evidence
+
+![gm convert giant resize — resource exhaustion hang](gm_hang.png)
+
+*gm convert giant resize — resource exhaustion hang*
