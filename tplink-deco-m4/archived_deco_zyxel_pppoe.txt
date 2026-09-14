@@ -1,0 +1,81 @@
+RRFuzz vulnerability reproduction evidence
+Captured: 2026-09-14 20:48:24 on webfuzz
+----
+Script started on 2026-09-14 20:48:24+08:00 [<not executed on terminal>]
+===== #3 TP-Link Deco M4 V3 1.5.0: /sbin/mount_root NULL+0x34 deref =====
+$ qemu-arm -L <deco-rootfs> sbin/mount_root   (reads /proc/mtd; absent in user-mode)
+/tmp/fw_deco/Deco_M4_V3_1.5.0_210414/squashfs-root-0/sbin/mount_root: cache '/etc/ld.so.cache' is corrupt
+qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+timeout: the monitored command dumped core
+archived_three.sh: line 12: 1476952 Segmentation fault      timeout 20 $QB/qemu-arm -L "$DECO" "$DECO/sbin/mount_root"
+[exit=139] (139 = SIGSEGV)
+
+===== #4 ZyXEL NBG2105: /bin/reload argument stack overrun =====
+$ qemu-mips -L <zyxel-rootfs> bin/reload -u http://[::1]:65535/PATH -e $USER -d jyc... --flag on -n -1
+/tmp/fw_zyxel/NBG2105_V1.00_AAGU.2_C0/squashfs-root/bin/reload: cache '/etc/ld.so.cache' is corrupt
+sh: 1: flash: not found
+sh: 1: flash: not found
+qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+timeout: the monitored command dumped core
+archived_three.sh: line 18: 1477010 Segmentation fault      timeout 20 $QB/qemu-mips -L "$ZYX" "$ZYX/bin/reload" -u 'http://[::1]:65535/PATH' -e "$USER" -d 'jycCCphpui1AcnDJN7vI' --flag on -n -1
+[exit=139] (139 = SIGSEGV, si_addr lands on stack guard page)
+
+===== #5 Tenda CNVD-2022-88837: pppoe-server -m 9999999999 integer overflow =====
+pppoe-server binary: /tmp/fw_tenda/cnvd_2022_88837/bin/pppoe-server
+$ qemu-arm -L <tenda-sysroot> pppoe-server -p pool -s pool -m 9999999999 -k -h  (original recipe)
+Usage: /tmp/fw_tenda/cnvd_2022_88837/bin/pppoe-server [options]
+Options:
+   -I if_name     -- Specify interface (default eth0.)
+   -T timeout     -- Specify inactivity timeout in seconds.
+   -C name        -- Set access concentrator name.
+   -m MSS         -- Clamp incoming and outgoing MSS options.
+   -L ip          -- Set local IP address.
+   -l             -- Increment local IP address for each session.
+   -R ip          -- Set start address of remote IP pool.
+   -S name        -- Advertise specified service-name.
+   -O fname       -- Use PPPD options from specified file
+   -p fname       -- Optain IP address pool from specified file.
+   -N num         -- Allow 'num' concurrent sessions.
+   -o offset      -- Assign session numbers starting at offset+1.
+   -f disc:sess   -- Set Ethernet frame types (hex).
+   -s             -- Use synchronous PPP mode.
+   -u             -- Pass 'unit' option to pppd.
+   -r             -- Randomize session numbers.
+   -x n           -- Limit to 'n' sessions/MAC address.
+   -P             -- Check pool file for correctness and exit.
+   -h             -- Print usage information.
+
+qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+timeout: the monitored command dumped core
+archived_three.sh: line 41: 1477089 Segmentation fault      timeout 20 $QB/qemu-arm -L "$SYSROOT" "$PP" -p /tmp/pool.txt -s /tmp/pool.txt -m 9999999999 -k -h
+[exit=139] (139 = SIGSEGV integer-overflow family)
+
+$ variant: pppoe-server pool.txt -L 999.999.999.999 -C AAAA
+Usage: /tmp/fw_tenda/cnvd_2022_88837/bin/pppoe-server [options]
+Options:
+   -I if_name     -- Specify interface (default eth0.)
+   -T timeout     -- Specify inactivity timeout in seconds.
+   -C name        -- Set access concentrator name.
+   -m MSS         -- Clamp incoming and outgoing MSS options.
+   -L ip          -- Set local IP address.
+   -l             -- Increment local IP address for each session.
+   -R ip          -- Set start address of remote IP pool.
+   -S name        -- Advertise specified service-name.
+   -O fname       -- Use PPPD options from specified file
+   -p fname       -- Optain IP address pool from specified file.
+   -N num         -- Allow 'num' concurrent sessions.
+   -o offset      -- Assign session numbers starting at offset+1.
+   -f disc:sess   -- Set Ethernet frame types (hex).
+   -s             -- Use synchronous PPP mode.
+   -u             -- Pass 'unit' option to pppd.
+   -r             -- Randomize session numbers.
+   -x n           -- Limit to 'n' sessions/MAC address.
+   -P             -- Check pool file for correctness and exit.
+   -h             -- Print usage information.
+
+qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+timeout: the monitored command dumped core
+archived_three.sh: line 41: 1477158 Segmentation fault      timeout 20 $QB/qemu-arm -L "$SYSROOT" "$PP" /tmp/pool.txt -L 999.999.999.999 -C AAAA
+[exit=139]
+
+Script done on 2026-09-14 20:48:24+08:00 [COMMAND_EXIT_CODE="0"]
