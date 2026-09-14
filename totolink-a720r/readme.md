@@ -2,7 +2,7 @@
 
 ## Affected Software
 - **Product: TOTOLINK A720R — boa web server**
-- **Version(s): firmware archive as tested (version string pending extraction from the image); MIPS32**
+- **Version(s): firmware V4.1.2cu.5182 (released 2022-12); MIPS32 BE (uClibc)**
 - **Vendor: TOTOLINK**
 
 ## Vulnerability Type
@@ -36,5 +36,3 @@ s.connect(("router", 80)); s.send(b"GET / HTTP/1.1\r\nHost: x\r\n\r\n")
 * **Availability**: remote unauthenticated DoS of the web management interface
 * Heap corruption at request handling implies potential further memory-safety impact (not yet assessed)
 
-## Note
-Firmware version string to be extracted from the tested image and added here before vendor disclosure.

@@ -2,7 +2,7 @@
 
 ## Affected Software
 - **Product: ASUS RT-AC68U — httpd (web management daemon)**
-- **Version(s): firmware archive as tested (version string pending extraction from the image); ARM32**
+- **Version(s): firmware 3.0.0.4.380_7743; ARM32 (uClibc)**
 - **Vendor: ASUS**
 
 ## Vulnerability Type
@@ -36,5 +36,3 @@ s.connect(("router", 80)); s.send(b"GET /" + b"A"*4000 + b" HTTP/1.1\r\nHost: x\
 * **Availability**: remote unauthenticated DoS of the web management interface (crash loop if watchdog restarts)
 * Potential code-execution impact of the overflow itself not yet assessed (crash-only evidence)
 
-## Note
-Firmware version string to be extracted from the tested image and added here before vendor disclosure.
