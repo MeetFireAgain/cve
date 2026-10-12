@@ -21,4 +21,5 @@ Security vulnerability disclosures.
 | Tenda AC18 | [unauthenticated telnetd activation via /goform/telnet](tenda-ac18/readme.md) |
 | SmartEVSE v3 | [unauthenticated web management (arbitrary firmware flashing)](smartevse-v3/readme.md) |
 | Victron dbus_modbustcp | [heap OOB read in MBAP PDU constructor (ASAN PoC)](victron-dbus-modbustcp/readme.md) |
-| Belkin F9K series | [hardcoded root password "root" across 3 models](belkin-f9k/readme.md) |
+| Belkin F9K series | [hardcoded root password "root" (CVE-2025-8730)](belkin-f9k/readme.md) |
+| Xiaomi BE6500 | [MQTT credential deterministic derivation (CWE-330)](xiaomi-be6500/readme.md) |
