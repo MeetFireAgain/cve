@@ -37,6 +37,11 @@ Content-Length: 2
 x=1
 ```
 
+Note: In QEMU-arm emulation, a session cookie (password=admin) was required.
+The binary itself contains zero authentication functions (617 dynsym symbols,
+no check_login/login_check/isLogin), consistent with CVE-2024-30891's
+"unauthenticated" classification for the same firmware's /goform/exeCommand.
+
 Response: `HTTP/1.0 200 OK` → `load telnetd success.`
 
 ## Dynamic Verification (QEMU-arm strace, 2026-10-10)
