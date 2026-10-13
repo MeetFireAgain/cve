@@ -28,7 +28,7 @@ the miio device control plane (device discovery, control, cloud bridging).
 
 1. Reverse-engineered the complete derivation formula from Fate-encrypted Lua plugins
 2. Computed forged MQTT credentials using the extracted formula
-3. Connected to broker: **CONNACK rc=6 accepted**, "New client connected"
+3. Connected to broker: **CONNACK rc=0 (accepted)**, "New client connected"
 4. Obtained full topic pub/sub permissions (same as legitimate internal clients)
 
 Real device in standalone mode returns rc=5 (expected — K does not exist without
